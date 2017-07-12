@@ -1,0 +1,20 @@
+{
+  "port": 5050,
+  "protocol": "http",
+  "name": "sample",
+  "defaultResponse": {
+    "statusCode": 400,
+    "body": {
+      "text": "Bad Request"
+    },
+    "headers": {
+      "content-type": "application/json;charset=utf-8"
+    }
+  },
+  "stubs": [
+      {
+        "predicates": [ <% include sample1/sample1_predicates.ejs %>],
+        "responses": [ <% include sample1/sample1_responses.ejs %>]
+      }
+  ]
+}

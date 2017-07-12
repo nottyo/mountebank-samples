@@ -1,0 +1,205 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# https://atom.io/docs/latest/using-atom-basic-customization#cson
+'.text.html.js':
+  'imposters':
+    'prefix': 'imps'
+    'body': """
+      {
+        "imposters": [
+            $1
+        ]
+      }
+    """
+  'include':
+    'prefix': 'incl'
+    'body': '<% include $1 %>'
+  'stringify':
+    'prefix': 'strfy'
+    'body': '<%- stringify(filename, \'$1\') %>'
+  'imposter':
+    'prefix': 'imp'
+    'body': """
+    {
+      "port": $1,
+      "protocol": "http",
+      "name": "$2",
+      "defaultResponse": {
+        "statusCode": 400,
+        "body": {
+          "text": "Bad Request"
+        },
+        "headers": {
+          "content-type": "application/json;charset=utf-8"
+        }
+      },
+      "stubs": [
+          $3
+      ]
+    }
+    """
+  'stub_pair':
+    'prefix': 'stub'
+    'body': """
+      {
+        "predicates": [],
+        "responses": []
+      }
+    """
+  'def_response':
+    'prefix': 'def_res'
+    'body': """
+      {
+        "responses": []
+      }
+    """
+  'predicates':
+    'prefix': 'pred'
+    'body': """
+      {
+        "equals": {
+            "method": "$1",
+            "path": "$2",
+            "body": {
+              $3
+            },
+            "query": {
+              $4
+            },
+            "headers": {
+              $5
+            }
+        },
+        "caseSensitive": false,
+        "except": "$6",
+        "xpath": "$7",
+        "jsonPath": "$8"
+      }
+    """
+  'responses':
+    'prefix': 'resp'
+    'body': """
+    {
+      "is": {
+        "statusCode": $1,
+        "headers": {
+          $2
+        },
+        "body": {
+          $3
+        },
+        "_mode": "text"
+      }
+    }
+    """
+  'behavior':
+    'prefix': 'behav'
+    'body': """
+      "_behavior": {
+          "wait": $1,
+          "repeat": $2,
+          "copy": [
+              {
+                "from": "body",
+                "into": "${token}",
+                "using": {
+                  "method": "jsonpath",
+                  "selector": "$..path"
+                }
+              }
+          ],
+          "lookup": [
+              {
+                "key": {
+                  "from": "path",
+                  "using": {
+                    "method": "regex",
+                    "selector": "/(.*)$"
+                  },
+                  "index": 1
+                },
+                "fromDataSource": {
+                  "csv": {
+                    "path": "values.csv",
+                    "keyColumn": "Name"
+                  }
+                },
+                "into": "${token}"
+              }
+          ],
+          "decorate": "$5",
+          "shellTransform": "$6"
+      }
+    """
+  'proxy':
+    'prefix': 'proxy'
+    'body': """
+    {
+      "proxy": {
+        "to": "http://origin-server.com",
+        "mode": "proxyOnce",
+        "predicateGenerators": [
+            {
+                "matches": {
+                    "query": true,
+                    "headers": true,
+                    "requestForm": true,
+                    "path": true,
+                    "method": true,
+                    "body": true
+                }
+            }
+        ],
+        "injectHeaders": {
+
+        },
+        "addWaitBehavior": false,
+        "addDecorateBehavior": "",
+        "ciphers": "ALL"
+      }
+    }
+    """
+  'response_injection':
+    'prefix': 'resp_inj'
+    'body': """
+      function (request, state, logger) {
+          logger.info('origin called');
+          return {
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: {
+              JSON.stringify({ text: success })
+            }
+          };
+      }
+    """
+  'predicate_injection':
+    'prefix': 'pred_inj'
+    'body': """
+      function (request, logger) {
+          if(request.headers['content-type'] === 'application/json') {
+            return true;
+          } else {
+            return false;
+          }
+      }
+    """
