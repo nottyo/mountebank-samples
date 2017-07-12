@@ -12,4 +12,5 @@ You can load your configuration files to Mountebank with an option `--configfile
 
 Personally, I recommend you to use [Atom](http://atom.io/) as an editor for EJS files. I also created Atom snippets for Mountebank which can help you to create your configuration files easier. You can copy the `snippets.cson` file into `~/.atom/` (You'll see an example usage below) Make sure that you've installed the [language-ejs](https://atom.io/packages/language-ejs) plugin into your Atom app.
 
+![snippets](https://raw.githubusercontent.com/nottyo/mountebank-samples/master/mountebank_samples.gif "Mountebank Samples")
 
