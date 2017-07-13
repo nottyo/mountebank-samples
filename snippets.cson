@@ -90,8 +90,15 @@
         },
         "caseSensitive": false,
         "except": "$6",
-        "xpath": "$7",
-        "jsonPath": "$8"
+        "xpath": {
+          "selector": "$7",
+          "ns": {
+            "a": "http://example.com/book"
+          }
+        },
+        "jsonPath": {
+          "selector": "$8"
+        }
       }
     """
   'responses':
@@ -113,7 +120,7 @@
   'behavior':
     'prefix': 'behav'
     'body': """
-      "_behavior": {
+      "_behaviors": {
           "wait": $1,
           "repeat": $2,
           "copy": [
@@ -201,5 +208,32 @@
           } else {
             return false;
           }
+      }
+    """
+  'ifelse':
+    'prefix': 'ifelse'
+    'body': """
+      <% if (condition) { %>
+          // condition true do here
+          $1
+      <% } else { %>
+          // condition false do here
+          $2
+      <% } %>
+    """
+  'var':
+    'prefix': 'var'
+    'body': '<%= variable %>'
+  'decorate_fn':
+    'prefix': 'dec_fn'
+    'body': """
+      function (request, response) {
+        var pad = function (number) {
+          return (number < 10) ? '0' + number : number.toString();
+        },
+        now = new Date(),
+        time = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+
+        response.body = response.body.replace('${TIME}', time);
       }
     """
