@@ -34,7 +34,7 @@ When you want to use snippets, just type the `prefix` text then press `tab` to e
 | pred         | create predicates       | { "equals": { "method": "POST", ... } }        |
 | resp         | create responses        | { "is": { "statusCode": 200, ... }  }          |
 | def_res      | default responses       | { "responses": [] }                            |
-| behav        | set response behavior   | { "\_behavior": { "wait": 5000, ... } }        |
+| behav        | set response behavior   | { "\_behaviors": { "wait": 5000, ... } }        |
 | proxy        | set response proxy      | { "proxy": { "to": "http://origin.com", ... } }|
 | resp_inj     | set response injection  | function(request, state, logger) { ... }       |
 | pred_inj     | set predicates injection| function(request, logger) { ... }              |
